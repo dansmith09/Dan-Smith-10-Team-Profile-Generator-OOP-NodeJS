@@ -43,6 +43,7 @@ const Intern = require('./lib/Intern');
 // Import packages
 const inquirer = require('inquirer');
 const fs = require('fs');
+const { data } = require('browserslist');
 
 
 const questions = [
@@ -79,7 +80,9 @@ const managerPromt = () => {
             message: "What is the team manager's office number?",
             name: 'officeNumber',
         },
-    ])
+    ]).then(() => {
+        teamMemberPromt();
+    })
 }
 
 const teamMemberPromt = () => {
@@ -90,7 +93,16 @@ const teamMemberPromt = () => {
             name: 'teamMember',
             choices: ['Engineer', 'Intern', 'I don\'t want to add anymore team members']
         },
-    ])
+    ]).then((data) => {
+        if(data.teamMember === 'Engineer') {
+            engineerPrompt();
+        } else if (data.teamMember === 'Intern') {
+            internPrompt();
+        } else {
+            // generate HTML
+            return;
+        }
+    })
 }
 
 const engineerPrompt = () => {
@@ -115,9 +127,10 @@ const engineerPrompt = () => {
             message: "What is the engineer's github username?",
             name: 'github',
         },
-    ])
+    ]).then(() => {
+        teamMemberPromt();
+    })
 }
-
 
 const internPrompt = () => {
     return inquirer.prompt([
@@ -141,17 +154,21 @@ const internPrompt = () => {
             message: "What school did the intern attend?",
             name: 'school',
         },
-    ])
+    ]).then(() => {
+        teamMemberPromt();
+    })
 }
 
 // TODO: Create a function to write README file
-const init = () => {
-    promptUser()
-    // TODO: Create a function to write README file
-    .then((data) => fs.writeFileSync('Example-README.md', generateMarkdown(data)))
-    .then(() => console.log('Successfully created README.md!'))
-    .catch((err) => console.error(err));
-};
+// const init = () => {
+//     promptUser()
+//     // TODO: Create a function to write README file
+//     .then((data) => fs.writeFileSync('Example-README.md', generateMarkdown(data)))
+//     .then(() => console.log('Successfully created README.md!'))
+//     .catch((err) => console.error(err));
+// };
 
-// Function call to initialize app
-init();
+// // Function call to initialize app
+// init();
+
+managerPromt();
