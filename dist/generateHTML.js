@@ -1,3 +1,5 @@
+// import concatHTMLArray
+
 const generateHTML = () => {
 
 }
@@ -25,67 +27,3 @@ const htmlSufix =
 </body>
 </html>
 `;
-
-let managerHTMLCard =
-`
-<div class="employeeContainer">
-<div class="employeeHeader">
-    <h2>${employeeName}</h2>
-    <h3>${position}</h3>
-</div>
-<div class="employeeBody">
-    <div class="employeeID">
-        <p>ID: ${id}</p>
-    </div>
-    <div class="employeeEmail">
-        <p>Email: <a href="${email}">${email}</a></p>
-    </div>
-    <div class="employeeOfficeNumber">
-        ${officeNumber}
-    </div>
-</div>
-</div>
-`;
-
-let engineerHTMLCard =
-`
-<div class="employeeContainer">
-<div class="employeeHeader">
-    <h2>${employeeName}</h2>
-    <h3>${position}</h3>
-</div>
-<div class="employeeBody">
-    <div class="employeeID">
-        <p>ID: ${id}</p>
-    </div>
-    <div class="employeeEmail">
-        <p>Email: <a href="${email}">${email}</a></p>
-    </div>
-    <div class="employeeGitHub">
-        ${github}
-    </div>
-</div>
-</div>
-`;
-
-const internHTMLCard =
-`
-<div class="employeeContainer">
-<div class="employeeHeader">
-    <h2>${employeeName}</h2>
-    <h3>${position}</h3>
-</div>
-<div class="employeeBody">
-    <div class="employeeID">
-        <p>ID: ${id}</p>
-    </div>
-    <div class="employeeEmail">
-        <p>Email: <a href="${email}">${email}</a></p>
-    </div>
-    <div class="employeeSchool">
-        ${school}
-    </div>
-</div>
-</div>
-`;
-

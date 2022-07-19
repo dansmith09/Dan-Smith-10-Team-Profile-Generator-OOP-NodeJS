@@ -45,11 +45,25 @@ const fs = require('fs');
 const { data } = require('browserslist');
 const concatenateHTMLArray = require('./dist/concatenateHTMLArray');
 
+const initialPrompt = () => {
+    return inquirer.prompt([
+        {
+            type: 'input',
+            message: "What is your team\'s name?",
+            name: 'name',
+        },
+    ]).then((data) => {
+        fs.writeFileSync(`team.html`,concatenateHTMLArray(data));
+        managerPromt();
+    })
+};
+
+
 const managerPromt = () => {
     return inquirer.prompt([
         {
             type: 'input',
-            message: "What is the team manager\'s name?",
+            message: "Enter Team Information:\nWhat is the team manager\'s name?",
             name: 'name',
         },
         {
@@ -68,7 +82,7 @@ const managerPromt = () => {
             name: 'officeNumber',
         },
     ]).then((data) => {
-        fs.writeFileSync(`${data.name}.html`,concatenateHTMLArray(data));
+        fs.writeFileSync(`team.html`,concatenateHTMLArray(data));
         teamMemberPromt();
     })
 };
@@ -116,7 +130,7 @@ const engineerPrompt = () => {
             name: 'github',
         },
     ]).then((data) => {
-        fs.writeFileSync(`${data.name}.html`,concatenateHTMLArray(data));
+        fs.appendFileSync(`team.html`,concatenateHTMLArray(data));
         teamMemberPromt();
     })
 };
@@ -144,13 +158,13 @@ const internPrompt = () => {
             name: 'school',
         },
     ]).then((data) => {
-        fs.writeFileSync(`${data.name}.html`,concatenateHTMLArray(data));
+        fs.appendFileSync(`team.html`,concatenateHTMLArray(data));
         teamMemberPromt();
     })
 };
 
 const init = () => {
-    managerPromt();
+    initialPrompt();
 };
 
 init();
