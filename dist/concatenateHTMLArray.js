@@ -11,17 +11,16 @@ const HTMLArray = [];
 
 const concatenateHTMLArray = (data) => {
     let employeeClass;
-    let employeeClassType;
+    let extraInfo;
     if (data.officeNumber) {
-        employeeClassType = 'Manager';
         employeeClass = new Manager(data.name, data.id, data.email, data.officeNumber);   
     } else if (data.github) {
-        employeeClassType = 'Engineer';
         employeeClass = new Engineer(data.name, data.id, data.email, data.github); 
     } else {
-        employeeClassType = 'Intern';
         employeeClass = new Intern(data.name, data.id, data.email, data.school); 
+        employeeClassType = 'Intern';
     }
+
     return `
     <div class="employeeContainer">
         <div class="employeeHeader">
@@ -35,7 +34,7 @@ const concatenateHTMLArray = (data) => {
             <div class="employeeEmail">
                 <p>Email: <a href="${employeeClass.email}">${employeeClass.email}</a></p>
             </div>
-            <div class="changeDependingOnType">
+            <div class="">
             </div>
         </div>
     </div>`;
