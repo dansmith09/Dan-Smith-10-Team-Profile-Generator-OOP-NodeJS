@@ -29,11 +29,10 @@
 // WHEN I decide to finish building my team
 // THEN I exit the application, and the HTML is generated
 
-// The application must have Employee, Manager, Engineer, and Intern classes.
-
 // Make employee class DONE
 // Create Manager, Engineer and Intern classes that extend the employee class DONE
-// Make function that starts the prompting
+// Make function that starts the prompting DONE
+
 
 // Import Classes
 const Employee = require('./lib/Employee');
@@ -44,19 +43,7 @@ const Intern = require('./lib/Intern');
 const inquirer = require('inquirer');
 const fs = require('fs');
 const { data } = require('browserslist');
-
-
-const questions = [
-    "What is your GitHub username?",
-    "What is your email address?",
-    "what is your project's name?",
-    "Please write a short description of your project",
-    "What kind of license should your project have?",
-    "What command should be run to install dependencies?",
-    "What command should be run to run tests?",
-    "What does the user need to know about using the repo?",
-    "What does the user need to know about contributing to the repo?",
-];
+const concatenateHTMLArray = require('./dist/concatenateHTMLArray');
 
 const managerPromt = () => {
     return inquirer.prompt([
@@ -80,10 +67,11 @@ const managerPromt = () => {
             message: "What is the team manager's office number?",
             name: 'officeNumber',
         },
-    ]).then(() => {
+    ]).then((data) => {
+        fs.writeFileSync(`${data.name}.html`,concatenateHTMLArray(data));
         teamMemberPromt();
     })
-}
+};
 
 const teamMemberPromt = () => {
     return inquirer.prompt([
@@ -103,7 +91,7 @@ const teamMemberPromt = () => {
             return;
         }
     })
-}
+};
 
 const engineerPrompt = () => {
     return inquirer.prompt([
@@ -127,10 +115,11 @@ const engineerPrompt = () => {
             message: "What is the engineer's github username?",
             name: 'github',
         },
-    ]).then(() => {
+    ]).then((data) => {
+        fs.writeFileSync(`${data.name}.html`,concatenateHTMLArray(data));
         teamMemberPromt();
     })
-}
+};
 
 const internPrompt = () => {
     return inquirer.prompt([
@@ -154,21 +143,14 @@ const internPrompt = () => {
             message: "What school did the intern attend?",
             name: 'school',
         },
-    ]).then(() => {
+    ]).then((data) => {
+        fs.writeFileSync(`${data.name}.html`,concatenateHTMLArray(data));
         teamMemberPromt();
     })
-}
+};
 
-// TODO: Create a function to write README file
-// const init = () => {
-//     promptUser()
-//     // TODO: Create a function to write README file
-//     .then((data) => fs.writeFileSync('Example-README.md', generateMarkdown(data)))
-//     .then(() => console.log('Successfully created README.md!'))
-//     .catch((err) => console.error(err));
-// };
+const init = () => {
+    managerPromt();
+};
 
-// // Function call to initialize app
-// init();
-
-managerPromt();
+init();

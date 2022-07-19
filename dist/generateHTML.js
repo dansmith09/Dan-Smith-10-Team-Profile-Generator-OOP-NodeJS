@@ -1,4 +1,6 @@
+const generateHTML = () => {
 
+}
 
 const htmlPrefix =
 `
@@ -86,3 +88,4 @@ const internHTMLCard =
 </div>
 </div>
 `;
+
