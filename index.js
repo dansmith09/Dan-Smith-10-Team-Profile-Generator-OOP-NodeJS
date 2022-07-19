@@ -1,16 +1,3 @@
-// .
-// ├── __tests__/             //jest tests
-// │   ├── Employee.test.js
-// │   ├── Engineer.test.js
-// │   ├── Intern.test.js
-// │   └── Manager.test.js
-// ├── dist/                  // rendered output (HTML) and CSS style sheet      
-// ├── lib/                   // classes
-// ├── src/                   // template helper code 
-// ├── .gitignore             // indicates which folders and files Git should ignore
-// ├── index.js               // runs the application
-// └── package.json           
-
 // GIVEN a command-line application that accepts user input
 // WHEN I am prompted for my team members and their information
 // THEN an HTML file is generated that displays a nicely formatted team roster based on user input
@@ -29,10 +16,6 @@
 // WHEN I decide to finish building my team
 // THEN I exit the application, and the HTML is generated
 
-// Make employee class DONE
-// Create Manager, Engineer and Intern classes that extend the employee class DONE
-// Make function that starts the prompting DONE
-
 
 // Import Classes
 const Employee = require('./lib/Employee');
@@ -44,26 +27,27 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 const { data } = require('browserslist');
 const concatenateHTMLArray = require('./dist/concatenateHTMLArray');
+const renderHTMLHead = require('./dist/renderHTMLHead');
+const renderHTMLTail = require('./dist/renderHTMLTail');
 
-const initialPrompt = () => {
-    return inquirer.prompt([
-        {
-            type: 'input',
-            message: "What is your team\'s name?",
-            name: 'name',
-        },
-    ]).then((data) => {
-        fs.writeFileSync(`team.html`,concatenateHTMLArray(data));
-        managerPromt();
-    })
-};
-
+// const initialPrompt = () => {
+//     return inquirer.prompt([
+//         {
+//             type: 'input',
+//             message: "What is your team\'s name?",
+//             name: 'name',
+//         },
+//     ]).then((data) => {
+//         fs.writeFileSync(`team.html`,concatenateHTMLArray(data));
+//         managerPromt();
+//     })
+// };
 
 const managerPromt = () => {
     return inquirer.prompt([
         {
             type: 'input',
-            message: "Enter Team Information:\nWhat is the team manager\'s name?",
+            message: "What is the team manager\'s name?",
             name: 'name',
         },
         {
@@ -82,7 +66,8 @@ const managerPromt = () => {
             name: 'officeNumber',
         },
     ]).then((data) => {
-        fs.writeFileSync(`team.html`,concatenateHTMLArray(data));
+        fs.writeFileSync(`team.html`,renderHTMLHead());
+        fs.appendFileSync(`team.html`,concatenateHTMLArray(data));
         teamMemberPromt();
     })
 };
@@ -101,8 +86,8 @@ const teamMemberPromt = () => {
         } else if (data.teamMember === 'Intern') {
             internPrompt();
         } else {
-            // generate HTML
-            return;
+            fs.appendFileSync(`team.html`,renderHTMLTail());
+            console.log('team.html file successfully generated!')
         }
     })
 };
@@ -164,7 +149,7 @@ const internPrompt = () => {
 };
 
 const init = () => {
-    initialPrompt();
+    managerPromt();
 };
 
 init();

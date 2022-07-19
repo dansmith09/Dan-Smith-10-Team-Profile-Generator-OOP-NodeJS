@@ -1,8 +1,5 @@
 // import concatHTMLArray
 
-const generateHTML = () => {
-
-}
 
 const htmlPrefix =
 `
@@ -27,3 +24,6 @@ const htmlSufix =
 </body>
 </html>
 `;
+
+
+const generateHTML = () => {}
