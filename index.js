@@ -36,9 +36,122 @@
 // Make function that starts the prompting
 
 // Import Classes
+const Employee = require('./lib/Employee');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 // Import packages
 const inquirer = require('inquirer');
 const fs = require('fs');
+
+
+const questions = [
+    "What is your GitHub username?",
+    "What is your email address?",
+    "what is your project's name?",
+    "Please write a short description of your project",
+    "What kind of license should your project have?",
+    "What command should be run to install dependencies?",
+    "What command should be run to run tests?",
+    "What does the user need to know about using the repo?",
+    "What does the user need to know about contributing to the repo?",
+];
+
+const managerPromt = () => {
+    return inquirer.prompt([
+        {
+            type: 'input',
+            message: "What is the team manager\'s name?",
+            name: 'name',
+        },
+        {
+            type: 'input',
+            message: "What is the team manager's ID",
+            name: 'id',
+        },
+        {
+            type: 'input',
+            message: "What is the team manager's email?",
+            name: 'email',
+        },
+        {
+            type: 'input',
+            message: "What is the team manager's office number?",
+            name: 'officeNumber',
+        },
+    ])
+}
+
+const teamMemberPromt = () => {
+    return inquirer.prompt([
+        {
+            type: 'list',
+            message: "Which type of team member would you like to add?",
+            name: 'teamMember',
+            choices: ['Engineer', 'Intern', 'I don\'t want to add anymore team members']
+        },
+    ])
+}
+
+const engineerPrompt = () => {
+    return inquirer.prompt([
+        {
+            type: 'input',
+            message: "What is the engineer\'s name?",
+            name: 'name',
+        },
+        {
+            type: 'input',
+            message: "What is the engineer's ID",
+            name: 'id',
+        },
+        {
+            type: 'input',
+            message: "What is the engineer's email?",
+            name: 'email',
+        },
+        {
+            type: 'input',
+            message: "What is the engineer's github username?",
+            name: 'github',
+        },
+    ])
+}
+
+
+const internPrompt = () => {
+    return inquirer.prompt([
+        {
+            type: 'input',
+            message: "What is the intern\'s name?",
+            name: 'name',
+        },
+        {
+            type: 'input',
+            message: "What is the intern's ID",
+            name: 'id',
+        },
+        {
+            type: 'input',
+            message: "What is the intern's email?",
+            name: 'email',
+        },
+        {
+            type: 'input',
+            message: "What school did the intern attend?",
+            name: 'school',
+        },
+    ])
+}
+
+// TODO: Create a function to write README file
+const init = () => {
+    promptUser()
+    // TODO: Create a function to write README file
+    .then((data) => fs.writeFileSync('Example-README.md', generateMarkdown(data)))
+    .then(() => console.log('Successfully created README.md!'))
+    .catch((err) => console.error(err));
+};
+
+// Function call to initialize app
+init();
