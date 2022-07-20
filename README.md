@@ -2,6 +2,7 @@
 
 
 **Description**
+---
 
 This Node JS application generates a 'Team Summary' website based on responses given by a user.
 
@@ -25,6 +26,7 @@ The user can add as many team members as they wish. When they choose to finish b
 The styling for the html is linked to a CSS file in the assets directory.
 
 **Video Demonstrations**
+---
 
 The video below shows the functionality of the application.
 
